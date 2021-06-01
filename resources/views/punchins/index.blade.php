@@ -24,7 +24,6 @@
             <th>Employee</th>
             <th>PunchIn DateTime</th>
             <th>PunchOut DateTime</th>
-            <th width="280px">Action</th>
         </tr>
         @foreach ($punchins as $product)
         <tr>
@@ -32,7 +31,7 @@
             <td>{{ $product->employe_id }}</td>
             <td>{{ $product->punchin_datetime }}</td>
             <td>{{ $product->punchout_datetime }}</td>
-            <td>
+            <!-- <td>
                 <form action="{{ route('punchins.destroy',$product->id) }}" method="POST">
                     <a class="btn btn-info" href="{{ route('punchins.show',$product->id) }}">Show</a>
                     @csrf
@@ -40,7 +39,7 @@
         
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?');">Delete</button>
                 </form>
-            </td>
+            </td> -->
         </tr>
         @endforeach
     </table>

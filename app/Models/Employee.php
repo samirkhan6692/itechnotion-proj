@@ -13,7 +13,8 @@ class Employee extends Model
         'name'
     ];
 
-    public function punchins(){
-   		return $this->hasMany(Punchin::class);
- 	}
+ 	public function punchin()
+    {
+    	return $this->hasMany(Punchin::class);
+    }
 }

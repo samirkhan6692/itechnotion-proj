@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Punchin;
 use App\Models\Employee;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PunchinController extends Controller
 {
@@ -48,10 +49,12 @@ class PunchinController extends Controller
         $input = $request->all();
         $id = $request['employe_id'];
         $punch = DB::table('punchins')
+             ->whereDate('created_at', '>=', Carbon::now())
              ->where('employe_id', $id)
              ->get();
     
         if(!$punch->isEmpty()){
+
             $punch_dt_time = $request['punchin_datetime'];
             DB::table('punchins')
                 ->where('employe_id', $id)
