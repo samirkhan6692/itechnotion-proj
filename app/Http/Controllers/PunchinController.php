@@ -49,16 +49,24 @@ class PunchinController extends Controller
         $input = $request->all();
         $id = $request['employe_id'];
         $punch = DB::table('punchins')
-             ->whereDate('created_at', '>=', Carbon::now())
+             //->whereDate('created_at', '>=', Carbon::now())
              ->where('employe_id', $id)
              ->get();
     
         if(!$punch->isEmpty()){
-
-            $punch_dt_time = $request['punchin_datetime'];
-            DB::table('punchins')
-                ->where('employe_id', $id)
-                ->update(['punchout_datetime' => $punch_dt_time]);    
+        	$punch_dt_time = $request['punchin_datetime'];
+        	$k=1;
+        	foreach ($punch as $key => $val) {
+        		if($val->punchout_datetime==''){
+        			$k=0;
+        			DB::table('punchins')
+		                ->where('employe_id', $id)
+		                ->update(['punchout_datetime' => $punch_dt_time]);
+        		}
+        	}
+        	if($k==1){
+        		Punchin::create($input);
+        	}
         }else{
             Punchin::create($input);
         }
